@@ -20,7 +20,7 @@ Los costos asociados a las rutas están medidos en minutos.
 
 ENTREGA 4
 
-A continuación se preetnan los errores porcentuales al sacar los costos y flujos de los  pard orígenes - destino.
+A continuación se preetnan los errores porcentuales al sacar los costos y flujos de los  pares orígenes - destino.
 
 ![image](https://user-images.githubusercontent.com/89056734/142055571-8ea08c41-288c-43b9-bbc4-42ea28d4d781.png)
 
