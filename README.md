@@ -17,3 +17,11 @@ Los costos asociados a las rutas están medidos en minutos.
 
 ![image](https://user-images.githubusercontent.com/89056734/141026200-cec7b2d7-0b04-405f-89a0-20a4053f6c94.png)
 
+
+ENTREGA 4
+
+A continuación se preetnan los errores porcentuales al sacar los costos y flujos de los  pard orígenes - destino.
+
+![image](https://user-images.githubusercontent.com/89056734/142055571-8ea08c41-288c-43b9-bbc4-42ea28d4d781.png)
+
+
