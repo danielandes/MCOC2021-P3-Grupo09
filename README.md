@@ -20,7 +20,7 @@ Los costos asociados a las rutas están medidos en minutos.
 
 ENTREGA 4
 
-A continuación se presentan los errores porcentuales al sacar los costos y flujos de los  pares orígenes - destino tal como puede apreciarse, ninguno de ellos superó el 1%.
+A continuación se presentan los errores porcentuales al sacar los costos y flujos de los  pares orígenes - destino. Tal como puede apreciarse, ninguno de ellos superó el 1%, lo cual es un muy buen indicador de la exactitud del código implementado.
 
 ![image](https://user-images.githubusercontent.com/89056734/142055571-8ea08c41-288c-43b9-bbc4-42ea28d4d781.png)
 
