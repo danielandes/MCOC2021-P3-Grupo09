@@ -17,6 +17,7 @@ Los costos asociados a las rutas están medidos en minutos.
 
 ![image](https://user-images.githubusercontent.com/89056734/141026200-cec7b2d7-0b04-405f-89a0-20a4053f6c94.png)
 
+
 # ENTREGA 3 - Daniel Morales
 
 ![Figure_1](https://user-images.githubusercontent.com/88337429/141601874-8e994426-7bee-4810-b04b-a1623108185b.png)
@@ -71,5 +72,10 @@ Con respecto a las rutas utilizadas, según wardrop, solo se utilizaran las ruta
 
 Como modo de contexto, wardrop afirma que una vez llegado al equilibiro, como es el caso de esta tarea, ningun usuario, puede reducir unilateralmente su costo mediante el cambio de ruta. 
 De esta forma, las rutas utilizadas para los distintos pares origen destino serán solo las destacadas en el excel.
+
+A continuación se presentan los errores porcentuales al sacar los costos y flujos de los  pares orígenes - destino. Tal como puede apreciarse, ninguno de ellos superó el 1%, lo cual es un muy buen indicador de la exactitud del código implementado.
+
+![image](https://user-images.githubusercontent.com/89056734/142055571-8ea08c41-288c-43b9-bbc4-42ea28d4d781.png)
+
 
 
