@@ -33,19 +33,19 @@ G.add_node("D", pos=(3,1))
 G.add_node("E", pos=(5,5))
 G.add_node("G", pos=(5,3))
 
-G.add_edge("A","B", fcosto=f1, flujo=0, costo=0)#r
-G.add_edge("A","C", fcosto=f2, flujo=0, costo=0)#s
+G.add_edge("A","B", fcosto=f1, flujo=0, costo=0,ffcosto="10+f/120")#r
+G.add_edge("A","C", fcosto=f2, flujo=0, costo=0,ffcosto="14+f/80")#s
 
-G.add_edge("B","C", fcosto=f3, flujo=0, costo=0)#t
-G.add_edge("B","D", fcosto=f2, flujo=0, costo=0)#u
+G.add_edge("B","C", fcosto=f3, flujo=0, costo=0,ffcosto="10+f/240")#t
+G.add_edge("B","D", fcosto=f2, flujo=0, costo=0,ffcosto="14+f/80")#u
 
-G.add_edge("D","C", fcosto=f1, flujo=0, costo=0)#v
-G.add_edge("D","G", fcosto=f2, flujo=0, costo=0)#y
+G.add_edge("D","C", fcosto=f1, flujo=0, costo=0,ffcosto="10+f/120")#v
+G.add_edge("D","G", fcosto=f2, flujo=0, costo=0,ffcosto="14+f/80")#y
 
-G.add_edge("C","G", fcosto=f3, flujo=0, costo=0)#x
-G.add_edge("C","E", fcosto=f2, flujo=0, costo=0)#w
+G.add_edge("C","G", fcosto=f3, flujo=0, costo=0,ffcosto="10+f/240")#x
+G.add_edge("C","E", fcosto=f2, flujo=0, costo=0,ffcosto="14+f/80")#w
 
-G.add_edge("G","E", fcosto=f1, flujo=0, costo=0)#z
+G.add_edge("G","E", fcosto=f1, flujo=0, costo=0,ffcosto="10+f/120")#z
 
 def costo(ni,nf,attr):
     funcosto_arco=attr["fcosto"]
@@ -84,6 +84,18 @@ for ni,nf in G.edges:
     
 pos=nx.get_node_attributes(G,"pos")
 
+plt.figure()
+
+ax1=plt.subplot(1, 1, 1)
+
+nx.draw_networkx_nodes(G, pos=pos)
+nx.draw_networkx_labels(G, pos=pos)
+nx.draw_networkx_edges(G, pos=pos,width=1.5)
+labels=nx.get_edge_attributes(G,"ffcosto")
+nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
+plt.suptitle(f"Funcion costo")
+plt.grid(True)
+plt.show()
     
 plt.figure()
 
