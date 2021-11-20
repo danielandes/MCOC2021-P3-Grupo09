@@ -80,4 +80,9 @@ A continuación se presentan los errores porcentuales al sacar los costos y fluj
 ![image](https://user-images.githubusercontent.com/89056734/142055571-8ea08c41-288c-43b9-bbc4-42ea28d4d781.png)
 
 
+ENTREGA 5
+
+Para seleccionar y posteriormente delimitar las zonas a incluir, seinvestigó por donde efectivamente pasa AVO. Luego, en la página "red CADEUS" se ubicaron las zonas por donde este nuevo proyecto pasaba y se delimitaron mediante "edges" en el programa. Se muestra n la figura como las zonas seleccionadas fueron las que están por la perfiferia del actual Américo Vespucio, es decir,las zonas 146, 666, 683, 682, 677, 287, 307, 288, 291, etc.
+
+![image](https://user-images.githubusercontent.com/89056734/142709200-515be144-6a71-41e5-9e98-3ac270fc0e44.png)
 
