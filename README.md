@@ -80,4 +80,19 @@ A continuación se presentan los errores porcentuales al sacar los costos y fluj
 ![image](https://user-images.githubusercontent.com/89056734/142055571-8ea08c41-288c-43b9-bbc4-42ea28d4d781.png)
 
 
+ENTREGA 5
+
+Para seleccionar y posteriormente delimitar las zonas a incluir, seinvestigó por donde efectivamente pasa AVO. Luego, en la página "red CADEUS" se ubicaron las zonas por donde este nuevo proyecto pasaba y se delimitaron mediante "edges" en el programa. Se muestra n la figura como las zonas seleccionadas fueron las que están por la perfiferia del actual Américo Vespucio, es decir, las zonas 146, 666, 683, 682, 677, 287, 307, 288, 291, etc.
+
+Quedaron seleccionadas aproximadamente 14 zonas en el mapa, y algunos fragmentos de otras.
+
+Debido a la lejanía y la expedita conexión una vez construida AVO, las zonas 146 y 266 en adelante (en el mapa) serán los pares OD con mayor flujo y/o demanda al momento en que la gigantesca obra vial esté terminada.
+
+En base a lo arrojado por el programa, se tendrían que asiganr un total de 128 viajes.
+
+![image](https://user-images.githubusercontent.com/89056734/142710899-56e2cfce-5bf3-4637-a4d5-1fc4284aecd0.png)
+
+![image](https://user-images.githubusercontent.com/89056734/142710906-498edcd8-7a0c-4d35-81dd-ad64195ca3c5.png)
+
+
 
