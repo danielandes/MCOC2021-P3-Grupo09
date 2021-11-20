@@ -88,3 +88,5 @@ Quedaron seleccionadas aproximadamente 14 zonas en el mapa, y algunos fragmentos
 
 ![image](https://user-images.githubusercontent.com/89056734/142709200-515be144-6a71-41e5-9e98-3ac270fc0e44.png)
 
+Debido a la lejanía y la expedita conexión una vez construida AVO, las zonas 146 y 289 en adelante (en el mapa) serán los pares OD con mayor flujo y/o demanda al momento en que la gigantesca obra vial esté terminada.
+
