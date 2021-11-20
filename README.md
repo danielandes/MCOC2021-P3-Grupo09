@@ -86,7 +86,11 @@ Para seleccionar y posteriormente delimitar las zonas a incluir, seinvestigó po
 
 Quedaron seleccionadas aproximadamente 14 zonas en el mapa, y algunos fragmentos de otras.
 
-![image](https://user-images.githubusercontent.com/89056734/142709200-515be144-6a71-41e5-9e98-3ac270fc0e44.png)
+Debido a la lejanía y la expedita conexión una vez construida AVO, las zonas 146 y 266 en adelante (en el mapa) serán los pares OD con mayor flujo y/o demanda al momento en que la gigantesca obra vial esté terminada.
 
-Debido a la lejanía y la expedita conexión una vez construida AVO, las zonas 146 y 289 en adelante (en el mapa) serán los pares OD con mayor flujo y/o demanda al momento en que la gigantesca obra vial esté terminada.
+![image](https://user-images.githubusercontent.com/89056734/142710899-56e2cfce-5bf3-4637-a4d5-1fc4284aecd0.png)
+
+![image](https://user-images.githubusercontent.com/89056734/142710906-498edcd8-7a0c-4d35-81dd-ad64195ca3c5.png)
+
+
 
