@@ -82,7 +82,7 @@ A continuación se presentan los errores porcentuales al sacar los costos y fluj
 
 ENTREGA 5
 
-Para seleccionar y posteriormente delimitar las zonas a incluir, seinvestigó por donde efectivamente pasa AVO. Luego, en la página "red CADEUS" se ubicaron las zonas por donde este nuevo proyecto pasaba y se delimitaron mediante "edges" en el programa. Se muestra n la figura como las zonas seleccionadas fueron las que están por la perfiferia del actual Américo Vespucio, es decir,las zonas 146, 666, 683, 682, 677, 287, 307, 288, 291, etc.
+Para seleccionar y posteriormente delimitar las zonas a incluir, seinvestigó por donde efectivamente pasa AVO. Luego, en la página "red CADEUS" se ubicaron las zonas por donde este nuevo proyecto pasaba y se delimitaron mediante "edges" en el programa. Se muestra n la figura como las zonas seleccionadas fueron las que están por la perfiferia del actual Américo Vespucio, es decir, las zonas 146, 666, 683, 682, 677, 287, 307, 288, 291, etc.
 
 Quedaron seleccionadas aproximadamente 14 zonas en el mapa, y algunos fragmentos de otras.
 
