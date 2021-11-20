@@ -82,13 +82,13 @@ A continuación se presentan los errores porcentuales al sacar los costos y fluj
 
 ENTREGA 5
 
-Para seleccionar y posteriormente delimitar las zonas a incluir, seinvestigó por donde efectivamente pasa AVO. Luego, en la página "red CADEUS" se ubicaron las zonas por donde este nuevo proyecto pasaba y se delimitaron mediante "edges" en el programa. Se muestra n la figura como las zonas seleccionadas fueron las que están por la perfiferia del actual Américo Vespucio, es decir, las zonas 146, 666, 683, 682, 677, 287, 307, 288, 291, etc.
+Para seleccionar y posteriormente delimitar las zonas a incluir, se investigó por donde efectivamente pasa AVO. Luego, en la página "red CADEUS" se ubicaron las zonas por donde este nuevo proyecto pasaba y se delimitaron mediante "edges" en el programa. Se muestra en la figura como las zonas seleccionadas fueron las que están por la perfiferia del actual Américo Vespucio, es decir, las zonas 146, 666, 683, 682, 677, 287, 307, 288, 291, etc.
 
-Quedaron seleccionadas aproximadamente 14 zonas en el mapa, y algunos fragmentos de otras.
+Quedaron seleccionadas 74 zonas en el mapa.
 
 Debido a la lejanía y la expedita conexión una vez construida AVO, las zonas 146 y 266 en adelante (en el mapa) serán los pares OD con mayor flujo y/o demanda al momento en que la gigantesca obra vial esté terminada.
 
-En base a lo arrojado por el programa, se tendrían que asiganr un total de 128 viajes.
+En base a lo arrojado por el programa, se tendrían que asignar un total de 128 pares origen-destino.
 
 ![image](https://user-images.githubusercontent.com/89056734/142710899-56e2cfce-5bf3-4637-a4d5-1fc4284aecd0.png)
 
