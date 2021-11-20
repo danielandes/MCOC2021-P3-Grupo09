@@ -88,6 +88,8 @@ Quedaron seleccionadas aproximadamente 14 zonas en el mapa, y algunos fragmentos
 
 Debido a la lejanía y la expedita conexión una vez construida AVO, las zonas 146 y 266 en adelante (en el mapa) serán los pares OD con mayor flujo y/o demanda al momento en que la gigantesca obra vial esté terminada.
 
+En base a lo arrojado por el programa, se tendrían que asiganr un total de 128 viajes.
+
 ![image](https://user-images.githubusercontent.com/89056734/142710899-56e2cfce-5bf3-4637-a4d5-1fc4284aecd0.png)
 
 ![image](https://user-images.githubusercontent.com/89056734/142710906-498edcd8-7a0c-4d35-81dd-ad64195ca3c5.png)
