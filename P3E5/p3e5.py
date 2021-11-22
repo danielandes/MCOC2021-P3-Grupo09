@@ -3,6 +3,8 @@ import osmnx as ox
 import matplotlib.pyplot as plt
 import geopandas as gps
 import pandas
+import numpy as np
+from networkx.algorithms import dijkstra_path
 zonas_gdf = gps.read_file("eod.json")
 ox.config(use_cache=True, log_console=True)
 #zonass=[18,12,17,19,13,20,49,50,48]
@@ -44,7 +46,7 @@ for i in indexes:
     ni=int(datoseod.loc[i]["398"])
     nf=int(datoseod.loc[i]["398.1"])
     valor=datoseod.loc[i]["687.03176715"]
-    if ni in zonass and nf in zonass:
+    if ni in zonass and nf in zonass and ni!=nf:
         DiccionarioMatrizOD[(ni,nf)]=valor
 print(DiccionarioMatrizOD) 
 print(len(DiccionarioMatrizOD)) 
@@ -52,6 +54,7 @@ print(len(DiccionarioMatrizOD))
 
 
 gdf_nodes,gdf_edges = ox.graph_to_gdfs(G)
+#print(gdf_nodes.loc[4441169826])
 street_centroids=gdf_edges.centroid
 #print(gdf_edges.iloc[0])
 #386184
@@ -108,23 +111,47 @@ listaidedges=gdf_edges.index
         #print("ayoo")
 S=nx.Graph()
 listanod=[]
+#print(gdf_edges.iloc[10])
+f1= lambda q, p, L, v, u: float(L)/float(v) + (5-float(u))*12 + (900/(float(u)*float(p)))*(10*float(q) - float(u)*float(p) + np.sqrt((10*float(q)-float(u)*float(p))**2 + float(q)/9)) if float(L)/float(v) + (float(u)-5)*12 + (900/(float(u)*float(p)))*(10*float(q) - float(u)*float(p) + np.sqrt((10*float(q)-float(u)*float(p))**2 + float(q)/9)) > 0 else 0
 #for i in clipn:
 #    S.add_node(i, pos=[nodoos.loc[i]["x"],nodoos.loc[i]["y"]], index=i)
 for i in listaidedges:
     if i[0] in clipn and i[1] in clipn:
         tipo=gdf_edges.loc[i]["highway"]
         nombre_e=gdf_edges.loc[i]["name"]
+        L_atr=float(gdf_edges.loc[i]["length"])
+        p_atr=gdf_edges.loc[i]["lanes"]
+        if isinstance(p_atr, list):
+            p_atr=float(max(p_atr))
     #
     #
         linew=1
-        if tipo=="motorway": color="orange"#red
-        elif tipo=="secondary": color="green"#yellow
-        elif tipo=="tertiary": color="blue"#blue
-        elif tipo=="primary": color="yellow"#green
+        if tipo=="motorway": 
+            color="orange"#
+            u_atr=5
+            v_atr=25
+        elif tipo=="secondary": 
+            color="green"#
+            u_atr=3
+            v_atr=15
+        elif tipo=="tertiary": 
+            color="blue"#
+            u_atr=2
+            v_atr=8
+        elif tipo=="primary": 
+            color="yellow"#
+            u_atr=3
+            v_atr=15
+        #elif tipo=="residential": 
+            #color="black"#
+            #u_atr=2
+            #v_atr=8
         elif tipo=="construction": 
             #print("aha",gdf_edges.loc[i]["highway"],gdf_edges.loc[i]["name"])
             color="red" 
-            linew=6
+            linew=1
+            u_atr=5
+            v_atr=25
         #elif tipo=="residential": color="black"#black
         else: tipo=""
         if tipo!="":
@@ -137,11 +164,20 @@ for i in listaidedges:
                 listanod.append(i[1])    
             if oneway==True:
                 #l=0
-                S.add_edge(i[0],i[1], fcosto=0, flujo=0, costo=0, color=color, nombre=nombre_e, w=linew)
+                S.add_edge(i[0],i[1], fcosto=f1, flujo=0, costo=0, color=color, nombre=nombre_e, w=linew, L_atri=L_atr, p_atri=p_atr, u_atri=u_atr, v_atri=v_atr)
             else:
-                S.add_edge(i[0],i[1], fcosto=0, flujo=0, costo=0, color=color, nombre=nombre_e, w=linew)
-                S.add_edge(i[1],i[0], fcosto=0, flujo=0, costo=0, color=color, nombre=nombre_e, w=linew)
+                S.add_edge(i[0],i[1], fcosto=f1, flujo=0, costo=0, color=color, nombre=nombre_e, w=linew, L_atri=L_atr, p_atri=p_atr, u_atri=u_atr, v_atri=v_atr)
+                #S.add_edge(i[1],i[0], fcosto=f1, flujo=0, costo=0, color=color, nombre=nombre_e, w=linew, L_atri=L_atr, p_atri=p_atr, u_atri=u_atr, v_atri=v_atr)
         #a=1
+def costox(ni,nf,attr):
+    funcosto_arco=attr["fcosto"]
+    q_arco=attr["flujo"]/5400
+    p_arco=attr["p_atri"]
+    L_arco=attr["L_atri"]
+    v_arco=attr["v_atri"]
+    u_arco=attr["u_atri"]
+    return (funcosto_arco(q_arco, p_arco, L_arco, v_arco, u_arco))
+
 labels = nx.get_edge_attributes(S,"nombre")
 #labelsnodoindex = nx.get_node_attributes(S,"index")
 #print(labelsnodoindex)
@@ -149,6 +185,7 @@ labels = nx.get_edge_attributes(S,"nombre")
 colors = []
 widths = []
 #for i in S.edges: print(i)
+
 for ni, nf in S.edges:
     colors.append(S.edges[ni,nf]["color"])
     widths.append(S.edges[ni,nf]["w"])
@@ -159,19 +196,70 @@ plt.figure()
 ax=plt.subplot(111)
 zonas_seleccionadas.plot(ax=ax, color="#CDCDCD")
 #zonas_seleccionadas2.plot(ax=ax, color="#FFB2B2")
-#nx.draw_networkx_nodes(S, pos=pos, node_size=3)
+nx.draw_networkx_nodes(S, pos=pos, node_size=3)
 #nx.draw_networkx_nodes(S, pos=pos, node_size=12)
 #nx.draw_networkx_labels(S, pos=pos,font_size=12)#
 #nx.draw_networkx_edge_labels(G,pos,edge_labels=labels, font_size=10)#
 #print(a)
+diccionario_nodorepresentativo={}
 nx.draw_networkx_edges(S, pos, edge_color=colors, width=widths)
-#for idx,row in zonas_seleccionadas.iterrows(): 
+
+for idx,row in zonas_seleccionadas.iterrows(): 
+    distancia_actual = np.infty
     #print(row["ID"], idx)
-    #c=row.geometry.centroid
-    #ax.annotate(text=row["ID"], xy=(c.x,c.y), horizontalalignment="center", color="magenta")
+    c=row.geometry.centroid
+    cx_zona=c.x
+    cy_zona=c.y
+    #print(c.x,c.y)
+    ax.annotate(text=row["ID"], xy=(c.x,c.y), horizontalalignment="center", color="magenta")
+
+    for i, node in enumerate(S.nodes):
+        #print(G.nodes[node])
+        #print(node)
+        cx_nodo=(S.nodes[node]["pos"][0])
+        cy_nodo=(S.nodes[node]["pos"][1])
+        #print(S.nodes[node]["index"])
+        dist_nodo=np.sqrt((cx_nodo-cx_zona)**2 +(cy_nodo-cy_zona)**2)
+        if dist_nodo<distancia_actual:
+            distancia_actual=dist_nodo
+            nodo_cercano=node
+            diccionario_nodorepresentativo[row["ID"]]=nodo_cercano
+#print(diccionario_nodorepresentativo)
+nuevodic={}
+for key in DiccionarioMatrizOD:
+    A=diccionario_nodorepresentativo[key[0]]
+    B=diccionario_nodorepresentativo[key[1]]
+    nuevodic[A,B]=float(DiccionarioMatrizOD[key])
+#print(DiccionarioMatrizOD) 
+#print(nuevodic) 
+#print(patata)
+
 centroides_seleccionados.plot(ax=ax, marker="o", color="magenta", markersize=8)
 plt.show()
+OD=nuevodic
+OD_target=OD.copy()
+while True:
+    se_asigno_demanda=False
+    for key in OD:
+        demanda_actual = OD[key]
+        demanda_objetivo=OD_target[key]
 
+        if demanda_actual>0:
+            
+            path=dijkstra_path(S,key[0],key[1], weight=costox)
+            #incrementar flujo en ruta minima
+            Nparadas =len(path)
+            
+            for i_parada in range(Nparadas-1):
+                o=path[i_parada]
+                d= path[i_parada+1]
+                flujo_antes=S.edges[o,d]["flujo"]
+
+                S.edges[o,d]["flujo"]+=OD_target[key]/50
+                #print(OD_target[key]/1000)
+            OD[key]-=OD_target[key]/50
+            se_asigno_demanda=True
+    if not se_asigno_demanda: break
 #S.add_edge("A","B", fcosto=0, flujo=0, costo=0)#r
 #print(nodoos.loc[4464991880])
 
