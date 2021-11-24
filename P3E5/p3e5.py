@@ -8,7 +8,21 @@ from networkx.algorithms import dijkstra_path
 zonas_gdf = gps.read_file("eod.json")
 ox.config(use_cache=True, log_console=True)
 #zonass=[18,12,17,19,13,20,49,50,48]
-zonass=[146,590,683,682,666,684,677,306,287,307,288,291,289,290,304,266,434,269,267,281,435,147,148,145,153,598,597,599,587,678,667,669,508,507,496,505,512,504,305,291,307,320,306,668,292,433,432,509,282,283,284,426.579,144,578,143,88,89,87,92,95,94,93,151,579,426,440,278,280,279,439,438,442,436,471]
+zonass=[146,590,683,682,666,684,677,306,287,307,288,291,289,290,304,266,434,269,267,281,435,147,148,145,153,598,597,599,
+        587,678,667,669,508,507,496,505,512,504,305,291,307,320,306,668,292,433,432,509,282,283,284,426.579,144,578,143,
+        88,89,87,92,95,94,93,151,579,426,440,278,280,279,439,438,442,436,471,666,683,682,677,287,307,306,288,291,289,290,
+        304,266,434,267,435,281,426,283,440,278,439,471,422,470,371,469,370,476,368,487,367,467,360,367,482,198,206,197,
+        225,227,213,231,214,246,243,242,240,241,665,661,
+        443,444,441,364,369,488,474,473,472,473,474,488,489,477,485,475,486,483,468,373,372,377,375,196,224,223,199,200,234,245,246,243,242,
+        226,660,663,662,664,657,656,659.658,654,236,249,237,238,239,235,239,238,237,249,623,649,
+        625,638,637,624,623,649,647,376,636,630,633,634,646,645,631,632,635,374,
+        361,621,620,629,622,628,641,244,374,362,363,365,366,627,626,619,639,640,365,366,29,
+        30,38,52,427,420,428,423,428,420,421,51,52,37,36,31,45,46,44,43,42,35,447,448,424,437,425,429,
+        431,430,419,446,514,502,501,495,32,33,34,47,48,50,49,16,513,510,511,494,41,23,516,498,506,591,586,595,596,594,
+        503,21,22,19,17,12,13,18,20,11,10,9,8,165,593,164,167,592,593,585,589,584,
+        581,582,160,162,161,163,170,171,159,168,158,86,85,96,90,98,
+        445,601,600,515,499,497,500,169,157,166,583,588,580,99,84,97
+        ]
 zonas_seleccionadas=zonas_gdf[zonas_gdf["ID"].isin(zonass)] #Centro + bordes
 north=-33.3637
 west=-70.80
@@ -255,12 +269,37 @@ while True:
                 d= path[i_parada+1]
                 flujo_antes=S.edges[o,d]["flujo"]
 
-                S.edges[o,d]["flujo"]+=OD_target[key]/50
+                S.edges[o,d]["flujo"]+=OD_target[key]/2
                 #print(OD_target[key]/1000)
-            OD[key]-=OD_target[key]/50
+            OD[key]-=OD_target[key]/2
             se_asigno_demanda=True
     if not se_asigno_demanda: break
 #S.add_edge("A","B", fcosto=0, flujo=0, costo=0)#r
 #print(nodoos.loc[4464991880])
-
+for ni,nf in S.edges:
+    arco =S.edges[ni,nf]
+    funcosto_arco=arco["fcosto"]
+    q_arco=arco["flujo"]/5400
+    p_arco=arco["p_atri"]
+    L_arco=arco["L_atri"]
+    v_arco=arco["v_atri"]
+    u_arco=arco["u_atri"]
+    arco["costo"]=funcosto_arco(q_arco, p_arco, L_arco, v_arco, u_arco)
 #398.1,687.03176715
+
+plt.figure()
+ax=plt.subplot(111)
+zonas_seleccionadas.plot(ax=ax, color="#CDCDCD")
+
+nx.draw_networkx_nodes(S, pos=pos, node_size=3)
+
+nx.draw_networkx_edges(S, pos, edge_color=colors, width=widths)
+labels = nx.get_edge_attributes(S,"flujo")
+nx.draw_networkx_edge_labels(G,pos,edge_labels=labels, font_size=10)
+plt.show()
+
+costored=0
+for ni,nf in S.edges:
+    arco =S.edges[ni,nf]
+    costored+=arco["costo"]
+print(f"Costo total en la red = {costored}")
