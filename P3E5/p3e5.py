@@ -65,6 +65,10 @@ for i in indexes:
         DiccionarioMatrizOD[(ni,nf)]=valor
 print(DiccionarioMatrizOD) 
 print(len(DiccionarioMatrizOD)) 
+contadorviajes=0
+for key in DiccionarioMatrizOD:
+    contadorviajes+=DiccionarioMatrizOD[key]
+print(f"viajes totales = {contadorviajes}")
     #print(datoseod.loc[i]["398"],datoseod.loc[i]["398.1"],datoseod.loc[i]["687.03176715"])
 
 
@@ -127,7 +131,7 @@ listaidedges=gdf_edges.index
 S=nx.Graph()
 listanod=[]
 #print(gdf_edges.iloc[10])
-f1= lambda q, p, L, v, u: float(L)/float(v) + (5-float(u))*12 + (900/(float(u)*float(p)))*(10*float(q) - float(u)*float(p) + np.sqrt((10*float(q)-float(u)*float(p))**2 + float(q)/9)) if float(L)/float(v) + (float(u)-5)*12 + (900/(float(u)*float(p)))*(10*float(q) - float(u)*float(p) + np.sqrt((10*float(q)-float(u)*float(p))**2 + float(q)/9)) > 0 else 0
+f1= lambda q, p, L, v, u: float(L)/float(v) + (float(u)-5)*12 + (900/(float(u)*float(p)))*(10*float(q) - float(u)*float(p) + np.sqrt((10*float(q)-float(u)*float(p))**2 + float(q)/9)) if float(L)/float(v) + (float(u)-5)*12 + (900/(float(u)*float(p)))*(10*float(q) - float(u)*float(p) + np.sqrt((10*float(q)-float(u)*float(p))**2 + float(q)/9)) > 0 else 0
 #for i in clipn:
 #    S.add_node(i, pos=[nodoos.loc[i]["x"],nodoos.loc[i]["y"]], index=i)
 for i in listaidedges:
@@ -195,7 +199,7 @@ def costox(ni,nf,attr):
     v_arco=attr["v_atri"]
     u_arco=attr["u_atri"]
     return (funcosto_arco(q_arco, p_arco, L_arco, v_arco, u_arco))
-print(nodoos.loc[4441169826])
+#print(nodoos.loc[4441169826])
 labels = nx.get_edge_attributes(S,"nombre")
 #labelsnodoindex = nx.get_node_attributes(S,"index")
 #print(labelsnodoindex)
