@@ -22,7 +22,7 @@ zonass=[146,590,683,682,666,684,677,306,287,307,288,291,289,290,304,266,434,269,
         503,21,22,19,17,12,13,18,20,11,10,9,8,165,593,164,167,592,593,585,589,584,
         581,582,160,162,161,163,170,171,159,168,158,86,85,96,90,98,
         445,601,600,515,499,497,500,169,157,166,583,588,580,99,84,97
-        ]
+        ]#,24,455,457,458
 zonas_seleccionadas=zonas_gdf[zonas_gdf["ID"].isin(zonass)] #Centro + bordes
 north=-33.3637
 west=-70.80
@@ -45,6 +45,7 @@ G=ox.graph_from_bbox(
     #clean_periphery=True,
     #custom_filter='["highway"~"motorway|primary|construction"]',
     custom_filter='["highway"~"motorway|primary|construction|secondary|tertiary"]',
+    #custom_filter='["highway"~"motorway|primary|secondary|tertiary"]',
     )
 
 #a,b=ox.graph_to_gdfs(G)
@@ -162,10 +163,11 @@ for i in listaidedges:
             #v_atr=8
         elif tipo=="construction": 
             #print("aha",gdf_edges.loc[i]["highway"],gdf_edges.loc[i]["name"])
-            color="red" 
-            linew=1
-            u_atr=5
-            v_atr=25
+            #color="red" 
+            #linew=1
+            #u_atr=5
+            #v_atr=25
+            tipo=""
         #elif tipo=="residential": color="black"#black
         else: tipo=""
         if tipo!="":
@@ -183,6 +185,8 @@ for i in listaidedges:
                 S.add_edge(i[0],i[1], fcosto=f1, flujo=0, costo=0, color=color, nombre=nombre_e, w=linew, L_atri=L_atr, p_atri=p_atr, u_atri=u_atr, v_atri=v_atr)
                 #S.add_edge(i[1],i[0], fcosto=f1, flujo=0, costo=0, color=color, nombre=nombre_e, w=linew, L_atri=L_atr, p_atri=p_atr, u_atri=u_atr, v_atri=v_atr)
         #a=1
+S.add_edge(514090676,253251270, fcosto=f1, flujo=0, costo=0, color="yellow", nombre="link", w=1, L_atri=5, p_atri=1, u_atri=3, v_atri=15)        
+S.add_edge(4441169826,240427952, fcosto=f1, flujo=0, costo=0, color="yellow", nombre="link", w=1, L_atri=5, p_atri=1, u_atri=3, v_atri=15) 
 def costox(ni,nf,attr):
     funcosto_arco=attr["fcosto"]
     q_arco=attr["flujo"]/5400
@@ -191,7 +195,7 @@ def costox(ni,nf,attr):
     v_arco=attr["v_atri"]
     u_arco=attr["u_atri"]
     return (funcosto_arco(q_arco, p_arco, L_arco, v_arco, u_arco))
-
+print(nodoos.loc[4441169826])
 labels = nx.get_edge_attributes(S,"nombre")
 #labelsnodoindex = nx.get_node_attributes(S,"index")
 #print(labelsnodoindex)
@@ -212,7 +216,7 @@ zonas_seleccionadas.plot(ax=ax, color="#CDCDCD")
 #zonas_seleccionadas2.plot(ax=ax, color="#FFB2B2")
 nx.draw_networkx_nodes(S, pos=pos, node_size=3)
 #nx.draw_networkx_nodes(S, pos=pos, node_size=12)
-#nx.draw_networkx_labels(S, pos=pos,font_size=12)#
+nx.draw_networkx_labels(S, pos=pos,font_size=12)#
 #nx.draw_networkx_edge_labels(G,pos,edge_labels=labels, font_size=10)#
 #print(a)
 diccionario_nodorepresentativo={}
@@ -269,9 +273,9 @@ while True:
                 d= path[i_parada+1]
                 flujo_antes=S.edges[o,d]["flujo"]
 
-                S.edges[o,d]["flujo"]+=OD_target[key]/2
+                S.edges[o,d]["flujo"]+=OD_target[key]/10
                 #print(OD_target[key]/1000)
-            OD[key]-=OD_target[key]/2
+            OD[key]-=OD_target[key]/10
             se_asigno_demanda=True
     if not se_asigno_demanda: break
 #S.add_edge("A","B", fcosto=0, flujo=0, costo=0)#r
@@ -292,7 +296,14 @@ ax=plt.subplot(111)
 zonas_seleccionadas.plot(ax=ax, color="#CDCDCD")
 
 nx.draw_networkx_nodes(S, pos=pos, node_size=3)
-
+for idx,row in zonas_seleccionadas.iterrows(): 
+    distancia_actual = np.infty
+    #print(row["ID"], idx)
+    c=row.geometry.centroid
+    cx_zona=c.x
+    cy_zona=c.y
+    #print(c.x,c.y)
+    ax.annotate(text=row["ID"], xy=(c.x,c.y), horizontalalignment="center", color="magenta")
 nx.draw_networkx_edges(S, pos, edge_color=colors, width=widths)
 labels = nx.get_edge_attributes(S,"flujo")
 nx.draw_networkx_edge_labels(G,pos,edge_labels=labels, font_size=10)
@@ -303,3 +314,4 @@ for ni,nf in S.edges:
     arco =S.edges[ni,nf]
     costored+=arco["costo"]
 print(f"Costo total en la red = {costored}")
+
