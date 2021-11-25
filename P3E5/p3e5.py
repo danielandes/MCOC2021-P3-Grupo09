@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import geopandas as gps
 import pandas
 import numpy as np
-from networkx.algorithms import dijkstra_path
+from networkx.algorithms import dijkstra_path,shortest_simple_paths
 zonas_gdf = gps.read_file("eod.json")
 ox.config(use_cache=True, log_console=True)
 #zonass=[18,12,17,19,13,20,49,50,48]
@@ -220,7 +220,7 @@ zonas_seleccionadas.plot(ax=ax, color="#CDCDCD")
 #zonas_seleccionadas2.plot(ax=ax, color="#FFB2B2")
 nx.draw_networkx_nodes(S, pos=pos, node_size=3)
 #nx.draw_networkx_nodes(S, pos=pos, node_size=12)
-nx.draw_networkx_labels(S, pos=pos,font_size=12)#
+#nx.draw_networkx_labels(S, pos=pos,font_size=12)#
 #nx.draw_networkx_edge_labels(G,pos,edge_labels=labels, font_size=10)#
 #print(a)
 diccionario_nodorepresentativo={}
@@ -277,9 +277,9 @@ while True:
                 d= path[i_parada+1]
                 flujo_antes=S.edges[o,d]["flujo"]
 
-                S.edges[o,d]["flujo"]+=OD_target[key]/10
+                S.edges[o,d]["flujo"]+=OD_target[key]/20
                 #print(OD_target[key]/1000)
-            OD[key]-=OD_target[key]/10
+            OD[key]-=OD_target[key]/20
             se_asigno_demanda=True
     if not se_asigno_demanda: break
 #S.add_edge("A","B", fcosto=0, flujo=0, costo=0)#r
@@ -310,7 +310,7 @@ for idx,row in zonas_seleccionadas.iterrows():
     ax.annotate(text=row["ID"], xy=(c.x,c.y), horizontalalignment="center", color="magenta")
 nx.draw_networkx_edges(S, pos, edge_color=colors, width=widths)
 labels = nx.get_edge_attributes(S,"flujo")
-nx.draw_networkx_edge_labels(G,pos,edge_labels=labels, font_size=10)
+#nx.draw_networkx_edge_labels(G,pos,edge_labels=labels, font_size=10)
 plt.show()
 
 costored=0
@@ -319,3 +319,37 @@ for ni,nf in S.edges:
     costored+=arco["costo"]
 print(f"Costo total en la red = {costored}")
 
+def costo(ni,nf,attr):
+    costo_arco=attr["costo"]
+    return(costo_arco)
+listaOD=[]
+for key in OD:
+    listaOD.append(key)
+for par in listaOD:    
+    paths=shortest_simple_paths(S, par[0], par[1], weight=costo)
+#print(paths)
+    c=0
+    print("")
+    print(par[0], par[1])
+    for i in paths:
+        #print(i)
+        Nparadas =len(i)
+        costoestaruta=0        
+        for i_parada in range(Nparadas-1):
+            o=i[i_parada]
+            d= i[i_parada+1]
+            costoestaruta+=S.edges[o,d]["costo"]
+                    #print(OD_target[key]/1000)
+        c+=1
+        print(costoestaruta)
+        if c==3: break
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
